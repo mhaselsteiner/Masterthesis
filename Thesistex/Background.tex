@@ -1,0 +1,100 @@
+\chapter{Background Theory}
+\label{sec:bt}
+\section{Numerical Weather Prediction Models}
+Numerical Weather Prediction models evolved from the approach to describe the atmosphere in terms of more general physical laws. In this section the basic assumptions and equations for NWP models are outlined according to \citeauthor{coiffier2011fundamentals} \cite{coiffier2011fundamentals}.\\ \\
+The core of every NWP model is based upon the `Primitive Equations' which are a form of the Navier-Stokes equations  describing: 
+\begin{itemize}
+\item{Momentum}
+\item{Mass transportation}
+\item{Energy balance}
+\end{itemize}
+ of a fluid \parencite{phillips1960problem}.
+\subsection{Primitive Equations}
+The following equations describe the dynamics of the atmosphere and are the core of every NWP Model.\\
+\subsubsection{Equation of Momentum}
+Here the acceleration of a frictionless flow of a Newtonian fluid is described. The equation is derived by taking the time derivative of the equation of momentum of a parcel of air
+    \begin{equation}
+        \frac{d \vec{v}}{dt} = -2 \vec{\Omega} \times \vec{v} - \frac{1}{\rho} \vec{\nabla} p - \vec {\nabla} \Phi + \vec{F} \quad ,
+        \label{eq:Navier-Stokes}
+    \end{equation}
+where $\vec{v}$ denotes the wind velocity, $\vec{\Omega}$  the angular velocity of the Earth, $ \rho$ the density of air, $p$ the pressure, $\Phi$ the  geopotential and  $\vec{F}$ dissipative forcing. 
+
+\subsubsection{Equation of State}
+The ideal gas law is used here. Equation \ref{eq:idealgas} is the simplest equation of state of a gas and describes the constant relation of pressure $p$, density $\rho$ and temperature $T$ in  an ideal gas, which is proportional to the gas constant $R$.
+    \begin{equation}
+        p = \rho R T
+    \label{eq:idealgas}    
+    \end{equation}    
+
+\subsubsection{Conservation of Energy}
+   Equation \eqref{eq:consener} is derived from the First Law of Thermodynamics. 
+    \begin{equation}
+        \frac{dT}{dt} = \frac{R}{C_{p}} \frac{T}{p} \frac{dp}{dt} + \frac{1}{C_{p} }\frac{dQ}{dt}
+    \label{eq:consener}
+    \end{equation}
+   The nomenclature is the same as for Equation \eqref{eq:Navier-Stokes} and \eqref{eq:idealgas}. The specific heat of air at a constant pressure $p$ is denoted by $C_{p}$ and the heat by $Q$.
+
+\subsubsection{Continuity Equation}
+In general the continuity equation describes the change in time of the density of a quantity that is preserved, which in this case is mass.
+    \begin{equation}
+        \frac{d \rho}{ dt} = - \rho \vec{\nabla} \vec{v}
+    \label{eq:continuity}    
+    \end{equation}
+The nomenclature remains the same as in Equation \eqref{eq:Navier-Stokes}.
+\subsubsection{Water Vapour Equation}
+The water vapour equation is usually not seen as part of the primitive equations, but considered in almost all atmospheric models.
+    \begin{equation}
+        \frac{dq_{\mathrm{spec}}}{dt} = M 
+    \label{eq:consvap}    
+    \end{equation}
+Here $q_{\mathrm{spec}}$ denotes the specific humidity and $M$ the source or sink term for humidity. 
+
+\subsection{Approximations}
+\label{subsec:approx}
+Depending on the model, different approximations need to be made to reduce the system of equations to a more easily solvable problem.
+The most common one is the so-called traditional meteorological approximation. It consists of:
+    \begin{itemize}
+        \item{The assumption that the gravitational acceleration is constant}
+        \item{The assumption that the Earth is a perfect sphere}
+        \item {The replacement of the Earth's angular velocity vector $\vec {\Omega}$ by its vertical component: $\vec {\Omega} = \Omega \vec{e_{r}}sin \phi = \frac{f}{2} \vec{e_{r}} $, where $\phi$ denotes the latitude}
+    \end{itemize}
+Setting $\frac{f}{2} \vec{e_{r}}$ to $\Omega$ is necessary, to be able to separate the wind vector into a vertical and a horizontal component.
+$F$, $\frac{dQ}{dt}$ and $M$ are source and sink terms that depend on parametrizations and scale of the model. For an adiabatic, frictionless and water vapour conserving atmosphere their contributions become 0.
+
+A very common approximation is to assume hydrostatic balance in a model. Meaning, 
+\begin{equation}
+    \frac{\partial p}{ \partial z } = \rho g
+    \label{eq:hydrobal}
+\end{equation} 
+needs to be satisfied.
+Equation \eqref{eq:hydrobal} implies, that there are no vertical winds and is therefore not suitable for models that use a fine mesh size, because for many small scale processes, e.g. convection and turbulence, vertical winds are essential. For that reason, most limited area models (e.g. AROME \cite{gmd-2017-103}) are non-hydrostatic. However, for models with large mesh sizes, mostly global models, this simplification can help reducing the computation time and still provides meaningful results.
+
+\subsection{System of Coupled Partial Differential Equations}
+To get a system of coupled partial differential equations (PDEs) that can be solved numerically, we start by taking Equations \eqref{eq:Navier-Stokes}, \eqref{eq:idealgas}, \eqref{eq:consener} and \eqref{eq:continuity} replacing the wind velocity $\vec{v}$ by a horizontal wind vector $ \vec{V} $ and a vertical wind component $w$ times the radial unit vector $\vec{e_{r}}$ as $\vec{v} = \vec{V} + w \vec{e_{r}} $. The source and sink terms are neglected for now.
+Together with the approximations we introduced in Subsection \ref{subsec:approx} and by setting $\frac{R}{C_{p}}=\kappa$, what in meteorology if referred to as `Poisson constant', the system of PDEs  takes the form:
+\vspace{1cm}
+\begin{equation}
+    \frac{d\vec{V}}{dt} = -f \vec{e_{r}} \times \vec{V} - \frac{RT}{p}\vec{\nabla}_{\mathrm{h}} p
+\end{equation}
+\begin{equation}
+   \frac{dw}{dt} = - \frac{RT}{p} \frac{\partial p}{\partial z} -g 
+\end{equation}
+\begin{equation}
+    \frac{dT}{dt} = \kappa \frac{T}{p}\frac{d p}{d t}
+\end{equation}
+\begin{equation}
+    \frac{dp}{dt} = - \frac{p}{ 1 - \kappa} \left( \vec{\nabla}_{\mathrm{h}} \vec{V} + \frac{dw}{dz} \right)
+\end{equation}
+\vspace{1cm}\\
+The sub-scripted h in the differential operators denotes only the horizontal components of the operator.
+These PDEs need to be solved and integrated for each time step, to get the  current values of the variables $\vec{V}, w, T$ and $ p$. Then, the so-called `parametrized tendencies' are added to the current value of the variables. The parametrized tendencies relate to source and sink terms and are the sum of the corresponding physics parametrization. Those parametrizations represent physical properties and processes that were neglected for simplification of the system of equations, when setting up the system of PDEs and are calculated separately at each time step. By the use of this iterative method, the atmospheric system can be evolved in time and predictions for the future can be made.\\
+The best way of solving the system of PDEs varies depending on purpose and scale of the model.\\
+The two most common methods to numerically solve those equations in numerical weather prediction are:
+\begin{itemize}
+    \item{Spectral Method}
+    \item{Finite Differences Method}
+\end{itemize}
+The spectral method is only one approach of a whole set of numerical methods, which are all based on the idea of expanding the solutions in terms of base functions. The finite element and finite volume method are also of the same nature but not discussed here, because they are only of minor importance in NWP modelling \cite{batkai2016mathematical}.
+In the spectral method the solutions are assumed to be global wave functions, defined on the whole domain. The main advantage is that the derivatives can be obtained analytically.\\
+The method of finite differences, on the other hand, is a local approach. It uses the differential quotient on a discrete grid to approximate the derivative. Meaning that the numerical procedure only uses local values. Consequently, finite differences solutions lack the capability of reflecting certain global characteristics of a function accurately, but they only require local values at a time for the calculation. Thus, the finite differences method is increasingly popular, because it can make use of very efficient parallelization procedures, where the grid space is divided into sub-domains \cite{batkai2016mathematical}.\\ 
+Nevertheless, the spectral method is still more common in global models, resulting from the fact that the spherical harmonics can be used as the global wave functions \cite{batkai2016mathematical, coiffier2011fundamentals}. They are the eigenfunctions of the angular dependent component of the Laplace operator and very suitable ansatz functions on a spherical domain. On other domains it is often not possible to find appropriate global wave functions and the bad approximation results in large trade-offs in numeric accuracy. These drawbacks led to the wide-spread use of the finite differences method in limited area models. \\

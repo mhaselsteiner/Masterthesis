@@ -1,0 +1,79 @@
+%Use graph with 
+\chapter{Methods and Set-Up}
+\label{sec:methods}
+\section{Perturbation Scheme}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{graphics/Perturbationsscheme.png}
+    \caption[Illustration of Perturbation Scheme]{Illustration of the perturbation scheme: Showing the different perturbed quantities at the top and the used ensemble members from the IFS model on bottom. }
+    \label{fig:pertrubation_scheme}
+\end{figure}
+For the evaluation of the parametrization, several forecasts with different perturbation schemes, also called NWP experiments, were performed.
+To investigate the influence of different variables on visibility, the following versions of perturbations, presented in Figure \ref{fig:pertrubation_scheme}, were tested:
+\begin{enumerate}
+    \item{Control ensemble}
+    \item {Perturbation of aerosol concentrations}
+    \item {Perturbation of hydrometeors}
+    \item {Perturbation of the parameters in the visibility parametrization}
+    \item {Perturbation of specific humidity}
+    \item {Total perturbation (aerosols, hydrometeors, specific humidity, parameters) }
+    
+\end{enumerate}
+Figure \ref{fig:pertrubation_scheme} illustrates the listed perturbed variables and which combinations were run as case studies and for the long-term verification. No additional perturbation was applied to the control ensemble. It constitutes of an AROME ensemble, which was created by using data of eight perturbed members and one control member of the IFS ensemble to set different boundary and initial conditions for each member. The measured visibility lies often outside the ensemble spread of the control ensemble, mainly, because this ensemble does not take model error into account. Especially for visibility, many of the key parameters are hard to predict reliably and often not varied in the standard perturbation schemes \cite{chmielecki2011probabilistic}. To tackle this underdispersion of the control ensemble, additional local perturbations were introduced.\\
+In this case, local means, the perturbations were chosen and set-up to be applied only in the visibility module. The other parts of the model remained untouched. \\
+For the perturbed ensemble, the current values are perturbed with the corresponding spatial-temporal pattern  at each time step and the perturbed quantities are passed on to the visibility parametrization and thus, do not affect any future states of the model. This method forbids the perturbations to be amplified in time, and therefore the default amplitudes must be higher in comparison to a perturbation scheme that is applied to the overall model and can evolve.
+The reason why a local perturbation scheme is used, is that no global perturbation scheme for AROME is available, where all the relevant parameters and variables can be perturbed.
+Perturbing all of them globally, would lead to a change in a number of non-linear feedback processes. The model could not handle those perturbations, because the effects of different perturbations can have conflicting outcomes for different variables. Since we are only interested in investigating the uncertainty of the visibility forecast, a local perturbation is sufficient.\\
+Although we can estimate the ranges for all parameters quite well, we have very little a priori knowledge about the compatibility of the values of different variables after a certain time.\\
+For a locally applied perturbation, the distance to the original trajectory in phase space can be restricted and chosen small enough to have tolerable errors. If we would allow them to propagate, we are unable to predict how the perturbed trajectory will evolve. There is no guarantee that it will lead to a realistic outcome at a later time, because the tolerable error can be amplified to a completely nonsensical scenario. 
+There are several other attempts of probabilistic forecasting of visibility \cite{chmielecki2011probabilistic, Roquelaure}, but we believe that the advantage of our method is its comprehensible nature. It is not purely statistical but relates to single physical quantities.\\
+
+The details of the perturbation scheme are outlined in the following subsections.
+\input{perturbrange.tex}
+
+\section{Set-Up}
+
+\begin{table}[h]
+    \footnotesize
+    \centering
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \rule{0pt}{16pt}{\large \textbf{Model Setting}}&{\large \textbf{Value}}&{\large \textbf{Effect} }\\ 
+        \hline
+        \hline
+        \textbf{Lag Time}&36h&Total Spread\\
+        \hline
+        \textbf{Coupling Frequency}&3h&Dependence on Global Model\\
+        \hline
+        \textbf{Forecast Duration}&18h&Available Outputs, Total Spread\\
+        \hline
+        \textbf{Base Time}&00:00&Available Outputs, Total Spread\\
+        \hline
+        \textbf{Long Term Verification}&July 2016&Evaluation\\
+         &January 2017&\\
+        \hline
+        \textbf{Case Studies} &10.07.2016&Impacts of Single Quantities\\
+        & 14.07.2016&\\
+        &08.01.2017&\\
+        &21.01.2017&\\
+        &29.01.2017&\\
+        \hline
+    \end{tabular}
+    \caption{Overview of the model's settings, the chosen verification periods and case studies.}
+    \label{tab:modelparam}
+\end{table}
+
+The model output was created from the totally perturbed ensemble, which incorporates all single perturbations, and the control ensemble for two whole months to obtain a large enough data set for the verification process.
+The months January 2017 and July 2016 were chosen, to be able to analyse data of summer and winter conditions.
+In addition, all the different versions of single perturbations were run for the following selected dates: \textbf{10.07.2016, 14.07.2016, 08.01.2017, 21.01.2017, 29.01.2017}.\\
+The days for the case studies were selected with having in mind, the want of investigating a broad variation of weather conditions. The case studies are of great importance to gain a deeper insight into the impact of each parameter and variable.\\ \\
+Since the overall ensemble spread is known to be too low, the model settings presented in Table \ref{tab:modelparam} are chosen under the aspect of amplifying it.\\
+The \textbf{base time}, which denotes the starting time of a forecast, was set to \textbf{00:00 UTC} and the \textbf{forecast duration to 18 hours}. UTC stands for Universal Time, Coordinated and means that only one global time zone is used. The setting was chosen, because visibility measurements are taken from 06:00 to 18:00 UTC. A base time of 00:00 UTC assures that the ensemble can evolve before the first value for verification is taken.
+For every run eight randomly selected ensemble members from the global IFS ensemble were taken, to investigate the effect of varying initial conditions. This number was chosen based upon what is computationally affordable and still gives a reasonable spread \cite{buizza1998impact}.
+For each member a different perturbation pattern was applied, by passing on a different seed to the random number generator. In addition every parameter has a different pattern.
+The purpose of this is to model the realistic scenario that different components in a system can either amplify or damp one and another.\\
+
+
+The coupling of the global and the limited area model is something that has great influence on the model spread. The lag time is the parameter that defines the difference of the base time of the run of the global model and the base time of the limited area model. It is known that for short-range and medium-range forecasts on average, the longer a forecast period lasts, the higher the spread is \cite{buizzaskillspread, bauer2015quiet}. Hence, the lag time has an impact, because if we take different ensemble members after a long forecast period the initial conditions have a much higher variation, than if they were taken at an earlier stage. We set the \textbf{lag time to 36 hours}.
+The coupling frequency is the model parameter that determines how often the boundary conditions should be updated with respect to the global model. The coupling is especially important, to avoid that the limited area model can evolve over longer periods of time in a way that is in total disagreement with the global model, and hence nonsensical.
+So the best is to couple as often as possible, with regards to availability of global data and computational affordability. For this study the \textbf{coupling frequency is set to three hours}.

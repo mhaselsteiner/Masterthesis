@@ -1,0 +1,129 @@
+\documentclass[12pt]{report}
+\usepackage{cmap} % to make pdf searchable, puts text underneath ligatures
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} 
+\usepackage[a4paper,  margin=3cm]{geometry}
+\usepackage[main=british, ngerman]{babel}
+\usepackage{wrapfig}
+\usepackage[autostyle=true,english=british]{csquotes}
+ %  \MakeAutoQuote{‘}{’}
+\usepackage{amsmath,amssymb}
+\usepackage{mathbbol}%if cardinality or unit is needed
+\usepackage{tabularx}
+\usepackage{longtable}%multiple pages table 
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{pdflscape}
+\usepackage{adjustbox}
+\usepackage{wrapfig}
+\usepackage[font={footnotesize},labelfont=bf]{subcaption}
+\usepackage{array}
+\usepackage[position=bottom,tableposition=bottom,font={footnotesize},labelfont=bf, singlelinecheck=false,
+    format=plain]{caption}
+\usepackage{float} % fixieren von grafiken
+\usepackage[backend=biber, style=numeric, citestyle=numeric, sorting=nty,maxbibnames=5]{biblatex}
+%changed cite style to nature from bwl fu because of PhD thesis in Netz' group
+\usepackage[position=bottom,tableposition=bottom,font={footnotesize},labelfont=bf]{caption}
+\captionsetup[table]{justification=centering}
+\usepackage{chngpage}
+\usepackage{titling}
+\usepackage{placeins}
+\usepackage{sidecap}
+\usepackage{hyperref} %always put as last package!
+
+\newcommand{ \aladincitation } [1] { \citeauthor{#1}, \citefield{#1}{title}, \citefield{#1}{journaltitle}, \citeyear{#1}. \newline} 
+
+
+
+\author{Magdalena Haselsteiner}
+
+
+\date{February 2017}
+\addbibresource{master.bib}
+
+\renewcommand{\arraystretch}{1.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+%\pagestyle{empty}
+\setlength\parindent{0pt}
+\begin{titlepage}
+\pagenumbering{gobble} 
+
+\centering {  {\Large\textbf{Master's Thesis}}\\ \vspace{4 cm} \Huge Application of Ensemble Prediction on a Visibility Parametrization based on Mie Scattering Theory}\\
+        \vspace{1.5 cm}
+        {\Large by Magdalena Elisabeth Haselsteiner}\\
+        \vspace{4.5cm}
+        \centering \textbf{ {\large Freie Universität Berlin\\ Fachbereich Physik}}
+        
+		\vspace{3cm}
+        \begin{adjustbox}{left=30cm}
+   
+
+	    \end{adjustbox}
+	    \vspace{\fill}
+	
+        \hspace{-3cm}
+	   \begin{minipage}[B]{0.3\textwidth }
+	   
+	        \includegraphics[width=\textwidth] {graphics/logos/ZAMGhead.jpg}
+	     
+	       \end{minipage}
+     \hspace{2.5cm}
+   \begin{minipage}[B]{0.5\textwidth }
+
+	        \includegraphics[width=\textwidth ] {graphics/logos/FULogo.jpg}
+	       
+	         \end{minipage}
+     
+\pagebreak
+
+	\begin{tabular}{l l}
+	        Title & Application of Ensemble Prediction\\[-0.1cm]
+	            &  on a Visibility Parametrization \\[-0.1cm]
+	            & based on Mie Scattering Theory\\[0.3cm]
+		    Author &  Magdalena Elisabeth Haselsteiner\\
+		    Matriculation Number & 4973395\\
+		    Date of Birth & 27.5.1992, Korneuburg, Austria\\
+		    University/Department & Free University Berlin, Department of Physics\\
+		    Course of Studies & Master studies, Physics\\
+		    $1^{st}$ Reviewer & Prof. Dr. Roland Netz\\
+		    $2^{nd}$ Reviewer & PD. Dr. Stefanie Russ\\
+		    In Cooperation with & Zentralanstalt für Meteorologie und Geodynamik\\
+		    Date of Submission & 08.05.2018 \\
+		\end{tabular}
+\end{titlepage}
+
+\newpage
+{\parskip=0em
+\tableofcontents}
+\newpage
+\listoffigures
+\newpage
+\pagenumbering{arabic}
+\input{Abstract.tex}
+\input{introduction.tex}
+\input{Background.tex}
+\input{Ensemble.tex}
+\input{visib.tex}
+\input{Model.tex}
+\input{Paramvis.tex}
+\input{setup.tex}
+\input{evaluation.tex}
+\input{results.tex}
+\input{conc_n_outlook.tex}
+\newpage\printbibliography[heading=bibintoc,
+title={Bibliography}
+]
+\newpage
+\input{originiality.tex}
+\newpage
+\input{acknowledgement.tex}
+\newpage
+\appendix
+\input{appendix.tex}
+\setlength{\bibitemsep}{1em}
+
+
+\end{document}

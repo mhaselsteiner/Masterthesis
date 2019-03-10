@@ -1,0 +1,111 @@
+
+\chapter{Parametrization of Visibility}
+
+\label{sec:param}
+For the newly introduced parametrization, two different existing approaches are merged:
+One for Mie scattering by hydrated aerosols introduced by \citeauthor{clark2008prediction} \cite{clark2008prediction} and the other one by \citeauthor{stoelinga1999nonhydrostatic} \cite{stoelinga1999nonhydrostatic}, where the parametrization of the extinction coefficient is directly dependent on the mass concentration of snow, rain, cloud water and cloud ice.\\
+This `merged' parametrization is called `Clark+' hereafter and is defined as 
+\begin{equation}
+    vis  = - \ln ( \varepsilon) \left( \beta_{R} + \sum\limits_{i=1}^{N_{h}} \beta_{h,i} +  \sum\limits_{j=1}^{N_{a}} \beta_{a,j} \right) ^{-1} \quad ,
+\end{equation}
+%describer surface volume coefficients in general 
+where $N_{h}$ denotes the number of different species of hydrometeors. Usually hydrometeor means all forms of precipitation, but in this case we will not only call snow and rain  hydrometeors, but  liquid cloud water and cloud ice too, to be consistent with nomenclature in the models. The number of different aerosol species is denoted by $N_{{a}}$. In general, an aerosol is defined as air with suspended particles, but in meteorological terminology the term aerosols only refers to the particles in the suspension, excluding hydrometeors \cite{raith2001erde}.
+The extinction coefficients of the different hydrometeors are taken from the parametrization by \citeauthor{stoelinga1999nonhydrostatic} \cite{stoelinga1999nonhydrostatic}, who refer to \citeauthor{rutledge1983mesoscale} \cite{rutledge1983mesoscale} and \citeauthor{kunkel1984parameterization} \cite{kunkel1984parameterization}, who define them as
+\begin{equation}
+\beta_{h,i} = a_{0,i} \ (c_{i} \ \rho \times 10^{3})^{a_{1,i}} \quad , \\
+\end{equation}
+where $c_{i}$ stands for the mass concentration of the hydrometeors and $\rho$ for the density of air. In general the coefficients $a_{0,i}$ and  $a_{1,i}$, shown in Table \ref{tab:Surface-Volume-Coefficients}, are related to the surface-volume-ratio of a hydrometeor. That is because the larger the surface-to-volume ratio of a hydrometeor is, the more likely is the light to be scattered for the same mass concentration ( e.g. a snowflake has a higher extinction efficiency than a water drop).\\
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|c|c|}
+    \hline
+    \multicolumn{3}{|c|}{\textbf{Surface-Volume-Coefficients}}\\
+    \hline
+    \textbf{Type of Hydrometeor} & $\boldsymbol{a_{0,i}}$ & $\boldsymbol{a_{1,i}}$\\
+    \hline
+        rain & 1.1&0.75 \\
+    \hline
+        snow& 10.4& 0.78\\
+    \hline
+        liquid cloud water&144.7 & 0.88\\
+    \hline
+        cloud ice & 1.1& 1\\
+    \hline
+    \end{tabular}
+    \caption{Surface-Volume-Coefficients}
+    \label{tab:Surface-Volume-Coefficients}
+\end{table}
+The extinction coefficients of the different aerosols $\beta_{\mathrm{a},j}$ depend mainly on the mass attenuation coefficients $\alpha_{j}$ of the aerosols:
+\begin{equation}
+    \beta_{a,j} = \alpha_{j} (q_{\mathrm{rel}}(q_{\mathrm{spec}}, T ,p))  \ c_{j} \  \rho_{\mathrm{dry}} \quad .
+\end{equation}
+
+As $\alpha_{j}(q_{\mathrm{rel}}(q_{\mathrm{spec}}, T ,p)$ implies, $\beta_{\mathrm{a},j}$ depends also on the humidity. The reason being, that the particles' sizes and therefore the scatter properties of aerosols, are affected by hygroscopic growth \cite{lang2010interaction}, which is considered in the parametrization. \\
+In the parametrization five different aerosol species are considered: sea salt, desert dust, black carbon, organic matter and sulphates. From these five aerosols only sea salt, sulphates and organic matter undergo hygroscopic growth and it can be neglected for desert dust and black carbon, due to their predominantly hydrophobic chemical composition. The mass attenuation coefficients, presented in Table \ref{tab:absorption}, are gained from a Mie scattering algorithm implemented and described by \citeauthor{reddy2005estimates} \cite{reddy2005estimates} and take the humidity into account by adapting the particle radius and the mass attenuation. All values were chosen for the wavelength of 555nm for the incoming light, because the human eye has a peak in sensitivity at this wavelength \parencite{horvath1981atmospheric, WMO}.\\
+The contrast threshold $\varepsilon$ determines when an object is considered to be visible. As discussed in Section \ref{sec:visib}  different values have been used in the past, but in agreement with  \citeauthor{clark2008prediction} \cite{clark2008prediction} it was set to $2 \% $ for this study.\\
+The layers which are used for calculating the average visibility can be set, depending on the purpose of the forecast. The default values, also used for this study, are set to average over the lowest 10 layers. This corresponds to a height from 0 to 240 \textendash 300m above the ground. The range of the upper boundary is due to the horizontal variation of the maximum height within one layer caused by the usage of hybrid-pressure-terrain-following coordinates (see Figure \ref{fig:coordinates}.\\
+The data of the aerosol concentration and its spatial distribution are taken from the NASA database [\citeurl{nasa}]. This aerosol data set was generated by simulating sinks and sources of different aerosols according to the works of  \citeauthor{tegen1997contribution} \cite{tegen1997contribution}, \citeauthor{chin1996global} \cite{chin1996global}, \citeauthor{liousse1996global} \cite{liousse1996global} and \citeauthor{tegen1995contribution} \cite{tegen1995contribution}, and is a climatological data set. Thus, high accuracy and currentness of the data is not given. This increases the uncertainty in the visibility parametrization. The aerosols data is provided in the unit of optical depth. To calculate the mass concentration the scattering cross section, a reference height and the density of air is needed. The scattering cross sections are also included in the NASA data set \cite{nasa} and reference height in the corresponding works \cite{tegen1997contribution,chin1996global, liousse1996global,tegen1995contribution}.\\
+The extinction coefficient of the Rayleigh contribution represents the scattering by atmospheric gases. As suggested by \citeauthor{clark2008prediction} \cite{clark2008prediction} it was set to $\beta_{R}$ = 0.0391, the equivalent of 100km visibility.\\
+Since so many physical processes that contribute to visibility cannot be resolved explicitly, there are many different approaches of parametrizing visibility \cite{claxton2008using, clark2008prediction, smirnova2000case, stoelinga1999nonhydrostatic, gultepe2010probabilistic,gultepe2006, chmielecki2011probabilistic}.
+The simplest and computationally least expensive way to forecast visibility is to find an analytical function of some model variables by fitting to a set of measured data.\\
+For benchmarking, seven other parametrizations of that kind were implemented, which were gathered from  \citeauthor{gultepe2010probabilistic} \cite{gultepe2010probabilistic} and \citeauthor{ gultepe2006} \cite{ gultepe2006} and are presented in Table \ref{tab:Paraoverview}.
+
+
+\begin{landscape}
+    \renewcommand{\arraystretch}{2.5}
+    \begin{table}[p]
+        \centering
+        \begin{tabular}{|l|c|r|}
+            \hline
+             \textbf{Abbreviation}&  \textbf{Reference}& \textbf{Parametrization}\\
+             \hline
+             Gul&\citeauthor{gultepe2006}(\citeyear{gultepe2006}) \cite{gultepe2006}, post-processing & $ \mathrm{min} \left[ 0.0219*\mathrm{LWC}^{-0.9603} \times 10^{-3}, \  67700* (1 - q_{\mathrm{rel}} ) ^ {0.67} \times 10^{-3} \right] $\\
+             \hline
+             Clark+& \citeauthor{clark2008prediction}  (\citeyear{clark2008prediction})\cite{clark2008prediction}, \citeauthor{stoelinga1999nonhydrostatic}(\citeyear{stoelinga1999nonhydrostatic})\cite{stoelinga1999nonhydrostatic}& $ -ln ( \epsilon) \left( \beta_{R} + \sum_{i}^{N_\mathrm{hydro}} \beta_{\mathrm{hydro},i} +  \sum_{j}^{N_\mathrm{aero}} \beta_{\mathrm{aero},j} \right)^{-1}$\\
+             \hline
+             RUC & \citeauthor{smirnova2000case}(\citeyear{smirnova2000case})\cite{smirnova2000case}& $ 60 \exp \left( \frac{- 2.5 \left( q_\mathrm{rel} \times  10^{2}-15 \right) } {80} \right)$\\
+             \hline
+             FRAMC &\citeauthor{gultepe2006}(\citeyear{gultepe2006})\cite{gultepe2006}& $ -41.5 \ln \left(  q_\mathrm{rel}\times 10^{2}\right) + 192.3 $\\
+             \hline
+             AIRS & \citeauthor{gultepe2006}(\citeyear{gultepe2006})\cite{gultepe2006}& $ -0.0177 \left( q_\mathrm{rel}\times 10^{2} \right) ^{2} + 1.46q_\mathrm{rel} +30.80$\\
+             \hline
+             FRAML5 &\citeauthor{gultepe2010probabilistic}(\citeyear{gultepe2010probabilistic})\cite{gultepe2010probabilistic}&  $ -0.000114  \left( q_\mathrm{rel}\times 10^{2} \right)^{2.7} + 27.45 $\\
+             \hline
+             FRAML50 & \citeauthor{gultepe2010probabilistic}(\citeyear{gultepe2010probabilistic})\cite{gultepe2010probabilistic}& $ -5.19 \times 10^{-10}  \left( q_\mathrm{rel}\times 10^{2} \right)^{5.44} + 40.10$\\
+             \hline
+             FRAML95 & \citeauthor{gultepe2010probabilistic}(\citeyear{gultepe2010probabilistic})\cite{gultepe2010probabilistic}& $-9.68 \times 10^{-14}  \left( q_\mathrm{rel}\times 10^{2} \right)^{7.19} + 52.20 $\\
+             \hline
+             
+        \end{tabular}
+        \caption{Overview of all implemented parametrizations, including references and used abbreviations. }
+        \label{tab:Paraoverview}
+    \end{table}
+\end{landscape}
+\begin{landscape}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{table}[H]
+ %   \fontsize{9}{9}\selectfont
+    \begin{adjustbox}{width=1.5\textwidth,center}
+        \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline 
+        \multicolumn{13}{|c|}{  \textbf{Mass Attenuation Coefficients of Different Aerosols } $\boldsymbol{\alpha_{j} [m^2/g]}$ }\\
+        \hline 
+         \textbf{Relative Humidity} &\textbf{0.0}&\textbf{0.1}&\textbf{0.2}&\textbf{0.3}&\textbf{0.4}&\textbf{0.5}&\textbf{0.6}&\textbf{0.7}&\textbf{0.8}&\textbf{0.85}&\textbf{0.9}&\textbf{0.95}\\
+        \hline 
+        Sulphates&4.94247&4.94247&4.94247&4.94247&6.85&7.74471&8.92815&10.6356&13.5782&16.2277&21.0072&35.4261 \\
+        \hline
+        Organic Matter&3.07043&3.07043&3.07043&3.07043&4.27185&4.84567&5.60681&6.70989&8.6229&10.3565&13.5060&23.1454\\
+        \hline
+        Sea Salt&0.03889&0.03889&0.03889&0.03889&0.07921&0.09226&0.10549&0.122930&0.149650&0.17160&0.21005&0.31026 \\
+        \hline
+        Desert Dust& \multicolumn{12}{c|}{0.42744}\\
+        \hline
+        Black Carbon &  \multicolumn{12}{c|}{9.412290}\\
+        \hline
+        \end{tabular}
+    \end{adjustbox}
+    \caption{List of mass attenuation coefficients of different aerosols. Sulphates, organic matter and sea salt undergo hygroscopic growth and resulting in a different mass attenuation for different values of relative humidity. The relative humidity is categorized in different bins. The values shown in this table, starting from the left to the right, denoting the edges of the bins. The upper edge of the last bin is missing, obviously being 1. } \label{tab:absorption}
+    \end{table}
+
+\end{landscape}
+

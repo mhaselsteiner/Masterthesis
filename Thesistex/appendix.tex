@@ -1,0 +1,208 @@
+\chapter{Tables}
+\label{sec:tabelappendix}
+ \section{Set-Up of Perturbation}
+\begin{longtable}[H]{|l|c|c|c|}
+    \hline 
+    \multicolumn{4}{|l|}{\textbf{Perturbation settings}}\\
+    \hline 
+    \textbf{Variable} & \textbf{spatial correlation [km]} & \textbf{distribution} & \textbf{scaling factor} \\ 
+    \hline
+    $c_{ice}$ & 60000 & lognormal & 0.25 \\
+    \hline
+    $c_{snow}$ & 60000 & lognormal & 0.25 \\
+    \hline
+    $c_{rain}$ & 60000 & lognormal & 0.25 \\
+    \hline
+    $c_{lcw}$ & 60000 & lognormal & 0.25 \\
+    \hline
+
+    $c_{\mathrm{om}}$ &200000  & lognormal& Table \ref{tab:scale_aerosol} \\
+    \hline
+    $c_{\mathrm{bc}}$ & 200000  &lognormal & Table \ref{tab:scale_aerosol} \\
+    \hline
+    $c_{\mathrm{ss}}$ & 200000  & lognormal & Table \ref{tab:scale_aerosol} \\
+    \hline
+    $c_{\mathrm{sul}}$ & 200000  & lognormal & Table \ref{tab:scale_aerosol} \\
+    \hline
+    $c_{\mathrm{dd}}$ & 200000 &  lognormal &Table \ref{tab:scale_aerosol}  \\
+    \hline
+    $q_{\mathrm{spec}}$ & 60000  & normal & 2.00 \\
+    \hline
+    $\alpha_{\mathrm{om}}$ &60000  & normal&  1.00\\
+    \hline
+    $\alpha_{\mathrm{bc}}$ & 60000  &normal & 1.00 \\
+    \hline
+    $\alpha_{\mathrm{ss}}$ & 60000  & normal &  1.00\\
+    \hline
+    $\alpha_{\mathrm{sul}}$ & 60000  & normal & 1.00 \\
+    \hline
+    $\alpha_{\mathrm{dd}}$ & 60000  & normal & 1.00 \\
+    \hline
+    $\sigma_{\mathrm{om}}$ &60000  & normal& 0.1\\
+    \hline
+    $\sigma_{\mathrm{bc}}$ & 60000  &normal & 0.1\\
+    \hline
+    $\sigma_{\mathrm{ss}}$ & 60000  & normal &  0.1\\
+    \hline
+    $\sigma_{\mathrm{sul}}$ & 60000  & normal & 0.1\\
+    \hline
+    $\sigma_{\mathrm{dd}}$ & 60000  & normal & 0.1 \\
+    \hline
+    $c_{\mathrm{0,rain}}$ & 60000  & normal & 0.20 \\
+    \hline
+     $c_{\mathrm{0,lcw}}$ & 60000  & normal & 0.20 \\
+    \hline
+     $c_{\mathrm{0,ice}}$ & 60000  & normal & 0.20 \\
+    \hline
+     $c_{\mathrm{0,snow}}$ & 60000  & normal & 0.20 \\
+    \hline
+    $c_{\mathrm{1,rain}}$ & 60000  & normal & 0.20 \\
+    \hline
+     $c_{\mathrm{1,lcw}}$ & 60000  & normal & 0.20 \\
+    \hline
+     $c_{\mathrm{1,ice}}$ & 60000  & normal & 0.20 \\
+    \hline
+     $c_{\mathrm{1,snow}}$ & 60000  & normal & 0.20 \\
+    \hline
+     
+
+    \caption{Namelist settings defining the patterns, constructed by the pattern generator, of the perturbed quantities. The spatial correlation provided, is only a namelist setting and has a complex relation to the actual spatial scale as described in Section \ref{sec:pattern gen}. It cannot be directly related with a length scale, because it is scaled with respect to the Earth's radius, since it as originally set-up for a global model. \label{tab:namelist_pert}}
+\end{longtable}
+
+\begin{landscape}
+    \begin{longtable}{|l|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline 
+            \multicolumn{13}{|c|}{  \textbf{Scaling Factors of Aerosol Perturbation} }\\
+            \hline 
+                   
+              \textbf{Month}&\textbf{1}&\textbf{2}&\textbf{3}&\textbf{4}&\textbf{5}&\textbf{6}&\textbf{7}&\textbf{8}&\textbf{9}&\textbf{10}&\textbf{11}&\textbf{12}\\
+            \hline 
+            \hline
+            Sulphate&1.3357& 1.5475 & 2.1818 & 2.8114 & 2.7717 &  3.1702 & 3.6221 & 3.4091 & 3.6193 & 3.0257 & 3.9347 & 4.4281 \\
+            \hline
+            Organic Matter & 4.3013 & 4.2449 & 4.0527 & 3.6794 &  4.3204 &  4.4870 & 3.7650 & 3.3974 & 3.0685 & 3.3869 & 3.5936 & 4.0124\\
+            \hline
+            Sea Salt&3.6922 & 3.3340 & 2.2834 & 2.0473 & 1.5699 &  1.4266 &  1.8392 & 1.7394 & 2.3499 & 2.7272 & 3.5206 & 3.1504 \\
+            \hline
+            Desert Dust& 3.4771 & 2.2858 & 2.5117 & 3.4750 &  4.1395 & 4.0536 & 3.5781 & 3.6066 & 3.9279 & 3.1142 &  2.4776 & 2.4406\\
+            \hline
+            Black Carbon &  5.2838&  5.3458 & 5.0817 & 4.7262 & 5.4137 & 5.6549 & 4.7267 & 4.2958 & 3.9782 & 4.2889 & 4.5131 & 4.9752 \\
+            \hline
+    \caption{Scaling factors  \label{tab:scale_aerosol} of the different aerosols. Set with respect to their global maxima}
+    \end{longtable}
+\end{landscape}
+\input{variables.tex}
+\begin{table}[h]
+    \footnotesize
+    \centering
+        \begin{tabular}{|l|c|}
+        \hline
+        \textbf{Abbreviation and Symbols}&\textbf{Meaning}\\
+        \hline
+        \hline
+        AROME&Application of Research to Operations on Mesoscale\\
+        \hline
+        ALADIN& Aire Limitée Adaptation Dynamique Développement International\\
+        \hline
+        ECMWF& European Centre for Medium-Range Weather Forecasts\\
+        \hline
+        EDA & Ensemble Data Assimilation\\
+        \hline
+        FFT & Fast Fourier Transformation\\
+        \hline
+        IFS&Integrated Forecast System \\
+        \hline
+        LAM&Limited Area Model \\
+        \hline
+        NWP & Numerical Weather Prediction\\
+        \hline
+        UTC & Universal Time, Coordinated\\
+        \hline
+        RMSE& Root Mean Squared Error\\
+        \hline
+        RMSLog & Root Mean Squared Difference of the Logarithmic values\\
+        \hline
+        RPS & Ranked Probability Score\\
+        \hline
+        RPSS & Ranked Probability Skill Score\\
+        \hline
+        WMO& World Meteorological Organization\\
+        \hline
+        WRF& Weather Research and Forecasting\\
+        \hline
+        $\Im$ & Imaginary part of a complex number\\
+        \hline
+        $\Re$ & Real part of a complex number\\
+        \hline
+        
+    
+    \end{tabular}
+    \caption{List of abbreviations and symbols in this thesis}
+    \label{tab:abbrivitations}
+\end{table}
+
+\begin{table}[h]
+    \footnotesize
+    \centering
+        \begin{tabular}{|l|c|}
+        \hline
+        \textbf{SYNOP key}&\textbf{visibility [km]}\\
+        \hline
+0	& 0.00\\
+\hline
+1&	0.10\\
+\hline
+2 &  0.20\\
+\hline
+...& ..\\
+\hline
+49 & 4.90\\
+\hline
+50&	5.00\\
+\hline
+51&	none\\
+\hline
+...& ..\\
+\hline
+55& none\\
+\hline
+56&	6.00\\
+\hline
+57&	7.00\\
+\hline
+...& ..\\
+\hline
+79&	29.00\\
+\hline
+80&	30.00\\
+\hline
+81&	35.00\\
+\hline
+...& ..\\
+\hline
+88&	70.00\\
+\hline
+89&	more than 70\\
+\hline
+
+    \end{tabular}
+    \caption{SYNOP keys: Numeric system used by the human observers to encode visibility}
+    \label{tab:synoptable}
+\end{table}
+
+\chapter{Images}
+\label{sec:imagesappendix}
+\section{Surface Weather Analysis}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{graphics/Bodenkarte0600.png}
+    \caption[Surface Weather Analysis 06:00 UTC]{Surface weather analysis 27-01-2017, 06:00 UTC of Europe. Image from the online archive of `\citeauthor{zamg}'  \cite{zamg}.}
+    \label{fig: Bodenkarte06}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{graphics/Bodenkarte1200.png}
+    \caption[Surface Weather Analysis 12:00 UTC]{Surface weather analysis 27-01-2017, 12:00 UTC of Europe. Image from the online archive of `\citeauthor{zamg}'  \cite{zamg}.}
+    \label{fig: Bodenkarte12}
+\end{figure}
